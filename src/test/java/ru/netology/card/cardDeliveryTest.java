@@ -1,6 +1,9 @@
 package ru.netology.card;
 
-import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -21,10 +24,19 @@ public class cardDeliveryTest {
         return formatDate;
     }
 
+    @BeforeAll
+    public static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     @BeforeEach
     public void startJar() {
-
-        open("http://localhost:9999/");
+        open("http://localhost:9999");
     }
 
     @Test
