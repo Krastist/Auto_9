@@ -25,17 +25,17 @@ public class cardDeliveryTest {
     }
 
     @BeforeAll
-    public static void setUpAll() {
+    static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterAll
-    public static void tearDownAll() {
+    static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
 
     @BeforeEach
-    public void startJar() {
+    void startJar() {
         open("http://localhost:9999");
     }
 
@@ -161,14 +161,14 @@ public class cardDeliveryTest {
         $("[data-test-id=city] input").setValue("Мо");
         $$(".menu-item").find(exactText("Москва")).click();
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id=date] input").setValue(getDate(3, "dd.MM.yyyy"));
+        $("[data-test-id=date] input").setValue(getDate(7, "dd.MM.yyyy"));
         $("[data-test-id=name] input").setValue("Иван Иванович");
         $("[data-test-id=phone] input").setValue("+71234567890");
         $("[data-test-id=agreement]").click();
         $("button.button").click();
         $("[data-test-id=notification]").shouldBe(visible, Duration.ofSeconds(13));
         $("[data-test-id=notification] .notification__title").shouldHave(exactText("Успешно!"));
-        $("[data-test-id=notification] .notification__content").shouldHave(exactText("Встреча успешно забронирована на " + getDate(3, "dd.MM.yyyy")));
+        $("[data-test-id=notification] .notification__content").shouldHave(exactText("Встреча успешно забронирована на " + getDate(7, "dd.MM.yyyy")));
     }
 
     @Test
@@ -176,7 +176,7 @@ public class cardDeliveryTest {
         $("[data-test-id=city] input").setValue("Mo");
 //        $(".menu").shouldBe(invisible);
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id=date] input").setValue(getDate(3, "dd.MM.yyyy"));
+        $("[data-test-id=date] input").setValue(getDate(7, "dd.MM.yyyy"));
         $("[data-test-id=name] input").setValue("Иван Иванович");
         $("[data-test-id=phone] input").setValue("+71234567890");
         $("[data-test-id=agreement]").click();
@@ -188,9 +188,6 @@ public class cardDeliveryTest {
     void validCalendarTest() {
         $("[data-test-id=city] input").setValue("Москва");
         $("[data-test-id=date] button").click();
-        if (!getDate(27,"MM").equals(getDate(3, "MM"))) {
-            $("[data-step=1]").click();
-        }
         $$(".calendar__day").find(exactText(getDate(7, "d"))).click();
         $("[data-test-id=name] input").setValue("Иван Иванович");
         $("[data-test-id=phone] input").setValue("+71234567890");
@@ -198,6 +195,6 @@ public class cardDeliveryTest {
         $("button.button").click();
         $("[data-test-id=notification]").shouldBe(visible, Duration.ofSeconds(13));
         $("[data-test-id=notification] .notification__title").shouldHave(exactText("Успешно!"));
-        $("[data-test-id=notification] .notification__content").shouldHave(exactText("Встреча успешно забронирована на " + getDate(3, "dd.MM.yyyy")));
+        $("[data-test-id=notification] .notification__content").shouldHave(exactText("Встреча успешно забронирована на " + getDate(7, "dd.MM.yyyy")));
     }
 }
